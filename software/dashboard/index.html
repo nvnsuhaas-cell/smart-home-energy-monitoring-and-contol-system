@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Home Energy Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 15px;
+      border-radius: 10px;
+      display: inline-block;
+      width: 200px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .on { background: green; color: white; }
+    .off { background: red; color: white; }
+  </style>
+</head>
+
+<body>
+
+<h1>Smart Home Energy Dashboard</h1>
+
+<div class="card">
+  <h3>Current (A)</h3>
+  <p id="current">0</p>
+</div>
+
+<div class="card">
+  <h3>Power (W)</h3>
+  <p id="power">0</p>
+</div>
+
+<div class="card">
+  <h3>Energy (kWh)</h3>
+  <p id="energy">0</p>
+</div>
+
+<h2>Relay Control</h2>
+
+<button class="on" onclick="relayOn()">ON</button>
+<button class="off" onclick="relayOff()">OFF</button>
+
+<script>
+
+const espIP = "http://192.168.1.5";
+
+function relayOn() {
+  fetch(espIP + "/relayON");
+}
+
+function relayOff() {
+  fetch(espIP + "/relayOFF");
+}
+
+setInterval(() => {
+  document.getElementById("current").innerText = (Math.random()*2).toFixed(2);
+  document.getElementById("power").innerText = (Math.random()*500).toFixed(0);
+  document.getElementById("energy").innerText = (Math.random()*5).toFixed(2);
+}, 2000);
+
+</script>
+
+</body>
+</html>
